@@ -24,6 +24,7 @@ document.getElementById("theme-btn").addEventListener("click", function () {
 // date Task
 const realDate = new Date();
 const realTimeDate = realDate.toDateString().split(" ");
+const currentTime = realDate.toLocaleTimeString();
 const div = document.createElement("div");
 div.innerHTML = `<p class="font-medium text-lg">${realTimeDate[0]},</p><h1 class=font-bold text-lg>${realTimeDate[1]} ${realTimeDate[2]}  ${realTimeDate[3]}</h1>`;
 document.getElementById("realTime-Date").appendChild(div);
@@ -51,7 +52,9 @@ for (let btn of completeBtn) {
             let taskOfCard = event.target.parentNode;
             let taskCard = taskOfCard.parentNode;
             let taskValue=taskCard.querySelector(".task-of-card").innerText;
-            console.log(taskValue);
+            let div=document.createElement("div");
+            div.innerHTML=`<p class="bg-slate-100 rounded-lg p-4 mx-6 my-6 font-normal text-lg">You have Complete The Task ${taskValue} at ${currentTime}</p>`
+            document.getElementById("activity-history").appendChild(div);
         }
 
         if (convertedTotalTask <= 0) { alert("Congrats!!!You have complete all the current task.") }
