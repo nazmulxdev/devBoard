@@ -7,25 +7,22 @@ document.getElementById("new-today").addEventListener("click", function () {
 
 
 
-// body section color change
-const uniqueBgColor = ["#cdb4db", "#ffc8dd", "#faedcd", "#be95c4", "#c6ac8f", "#f27059", "#a4c3b2", "#a3b18a", "#dad7cd", "#F1F5F9"];
-let i = 0;
-document.getElementById("theme-btn").addEventListener("click", function () {
 
-    document.body.style.backgroundColor = uniqueBgColor[i];
-    i++;
-    if (i >= uniqueBgColor.length) {
-        i = 0;
-    }
-}
-);
+// body background color
+document.getElementById("theme-btn").addEventListener("click", function () {
+    let num1 = Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    let num2 = Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    let num3 = Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    let rgbColor = `rgb(${num1},${num2},${num3})`
+    document.body.style.backgroundColor = rgbColor;
+})
+
 
 
 // date Task
-const realDate = new Date();
-const realTimeDate = realDate.toDateString().split(" ");
-const currentTime = realDate.toLocaleTimeString();
-const div = document.createElement("div");
+let realDate = new Date();
+let realTimeDate = realDate.toDateString().split(" ");
+let div = document.createElement("div");
 div.innerHTML = `<p class="font-medium text-lg">${realTimeDate[0]},</p><h1 class=font-bold text-lg>${realTimeDate[1]} ${realTimeDate[2]}  ${realTimeDate[3]}</h1>`;
 document.getElementById("realTime-Date").appendChild(div);
 
@@ -51,9 +48,17 @@ for (let btn of completeBtn) {
             alert("Board Update Successfully");
             let taskOfCard = event.target.parentNode;
             let taskCard = taskOfCard.parentNode;
-            let taskValue=taskCard.querySelector(".task-of-card").innerText;
-            let div=document.createElement("div");
-            div.innerHTML=`<p class="bg-slate-100 rounded-lg p-4 mx-6 my-6 font-normal text-lg">You have Complete The Task ${taskValue} at ${currentTime}</p>`
+            let taskValue = taskCard.querySelector(".task-of-card").innerText;
+
+            let realDate = new Date();
+            let currentTime = realDate.toLocaleTimeString("en-us", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            });
+            let div = document.createElement("div");
+            div.innerHTML = `<p class="bg-slate-100 rounded-lg p-4 mx-6 my-6 font-normal text-lg">You have Complete The Task <span class="font-semibold">${taskValue}</span> at <span class="font-semibold">${currentTime}</span></p>`
             document.getElementById("activity-history").appendChild(div);
         }
 
@@ -66,3 +71,14 @@ for (let btn of completeBtn) {
     })
 
 }
+
+document.getElementById("history-cleaner-btn").addEventListener("click", function (event) {
+    let activityLog = event.target.parentNode;
+    let activityHistory = activityLog.parentNode;
+    let activityFather = activityHistory.nextElementSibling;
+    activityFather.innerHTML="";
+})
+
+
+
+
